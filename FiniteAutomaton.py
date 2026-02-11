@@ -74,7 +74,13 @@ class FiniteAutomaton:
                 raise ValueError(
                     f"Transition undefined for state={current_state}, symbol={symbol}"
                 ) from e
-                          
+            
+            # validate that the transition function returned a valid state
+            if next_state not in self.states:
+                raise ValueError(
+                        f"Transition returned invalid state '{next_state}' "
+                        f"for state={current_state}, symbol={symbol}"
+                ) 
             current_state = next_state
 
         return current_state
